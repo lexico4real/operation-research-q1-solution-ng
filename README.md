@@ -46,5 +46,65 @@ AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
 4. 2
 5. 3
 6. 9
-7. 9
+7. NO SUCH ROUTE
 8. 7
+
+# My Solution
+
+This solutiom leverages concepts and techniques from operations research, specifically graph theory and network optimization, to solve the problem of retrieving routes between different academies.
+
+## Contexts
+- [Distance Calculation](#distance-calculation)
+- [Route Counting](#route-counting)
+- [Shortest Route Calculation](#shortest-route-calculation)
+- [Route Counting with Distance Constraint](#route-counting-with-distance-constraint)
+- [Design and Assumptions](#design-and-assumptions)
+- [Running the Application](#running-the-application)
+
+## Distance Calculation
+- **Graph Representation**: The graph is represented using a dictionary where each key is a node (academy) and the value is a list of tuples representing the edges (routes) and their weights (distances).
+- **Route Calculation**: To calculate the distance of a specific route, the algorithm traverses the graph, summing the distances. If any segment of the route does not exist, it returns "NO SUCH ROUTE".
+
+## Route Counting
+- **Depth-First Search (DFS)**: DFS is utilized to explore all possible routes from a starting node to an ending node, counting those that satisfy constraints such as a maximum number of stops or an exact number of stops.
+- **Recursive Approach**: The recursive nature of DFS aids in exploring all potential paths in the graph, making it suitable for counting routes under specific constraints.
+
+## Shortest Route Calculation
+- **Dijkstra’s Algorithm**: This algorithm finds the shortest path between two nodes in a graph, a classic operations research technique for solving shortest path problems.
+- **Priority Queue**: A priority queue is employed to always expand the shortest known distance, ensuring efficient discovery of the shortest path.
+
+## Route Counting with Distance Constraint
+- **Modified DFS**: A variant of DFS is implemented to count all possible routes from a starting node to an ending node where the total distance is less than a specified maximum distance. This involves tracking cumulative distance as routes are explored.
+
+## Design and Assumptions
+### Design Overview
+- The solution utilizes the Strategy design pattern to encapsulate different graph algorithms for various operations such as:
+  - Calculating route distance
+  - Counting routes with specific constraints (stops, distance)
+  - Finding the shortest route
+
+### Interface
+- **IGraphStrategy**: Provides a common interface for all concrete strategies, ensuring they implement the `Execute` method.
+
+### Concrete Strategies
+- **RouteDistanceStrategy**: Calculates the distance of a specified route.
+- **CountRoutesWithMaxStopsStrategy**: Counts routes with a maximum number of stops between two nodes.
+- **CountRoutesWithExactStopsStrategy**: Counts routes with an exact number of stops between two nodes.
+- **FindShortestRouteStrategy**: Identifies the shortest route (minimum distance) between two nodes using Dijkstra's algorithm.
+- **CountRoutesWithMaxDistanceStrategy**: Counts routes within a maximum distance between two nodes.
+
+### Context
+- **GraphContext**: This class utilizes the selected strategy to execute the corresponding graph algorithm based on the user's query.
+
+### Assumptions
+- The input graph is represented as a directed graph where edges have weights (distances).
+- Input routes are provided as a comma-separated string where each route specifies a start node, end node, and distance. Check Program.cs file.
+- Queries are handled as specified in the examples, returning appropriate outputs (distances, counts, or error messages for invalid routes).
+
+## Running the Application
+1. Ensure you have .NET installed.
+2. Open a terminal/command prompt on your computer.
+3. Clone the repository:
+   ```bash
+   git clone https://github.com/lexico4real/operation-research-q1-solution-ng.git
+
